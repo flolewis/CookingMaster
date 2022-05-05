@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveDirection = Vector2.zero;
     [SerializeField]
     private Transform closestIntArea;
+    private InteractiveArea intArea;
 
     [Header("Input")]
     [SerializeField]
@@ -37,23 +38,34 @@ public class PlayerController : MonoBehaviour
         if (player == Player.Player1)
         {
             move = playerControls.Player1.Move;
+            fire = playerControls.Player1.Fire;
         }
         else
         {
             move = playerControls.Player2.Move;
+            fire = playerControls.Player2.Fire;
         }
-        move.Enable();
+        move.Enable(); 
+        fire.Enable();
     }
     private void OnDisable()
     {
         move.Disable();
+        fire.Disable();
     }
     private void Update()
     {
         moveDirection = move.ReadValue<Vector2>();
-        closestIntArea = GetClosestInteractiveArea();
+        closestIntArea = GetClosestInteractiveArea(); 
         if (closestIntArea != null) {
-            closestIntArea.GetComponent<InteractiveArea>().isInteractable = true;
+            intArea = closestIntArea.GetComponent<InteractiveArea>();
+            intArea.isInteractable = true;
+            if (fire.triggered && intArea.isItem)
+            {
+                intArea.onInteract.AddListener(()=>HoldItem(closestIntArea.GetComponent<InteractiveArea>().item));
+                intArea.onInteract.Invoke();
+                intArea.onInteract.RemoveAllListeners();
+            }
         }
     }
     private void FixedUpdate()
@@ -83,4 +95,8 @@ public class PlayerController : MonoBehaviour
         }
         return closestArea;
     }
+    public void HoldItem(ItemsEnum item) {
+        GetComponent<ItemController>().AddItem(item);
+    } 
+
 }
