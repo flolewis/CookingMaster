@@ -4,11 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 [System.Serializable]
+public enum InteractiveAreaEnum 
+{ 
+    Ingredients,
+    Trash,
+    ChoppingBoard,
+    Plate,
+    Customer
+}
+[System.Serializable]
 public enum ItemsEnum
 {
     Tomato,
     Lettuce,
-    Chicken
+    Chicken,
+    None
 }
 [System.Serializable]
 public enum Status

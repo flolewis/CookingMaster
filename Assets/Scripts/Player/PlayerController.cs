@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform closestIntArea;
     private InteractiveArea intArea;
-
+    public Items tempHeld;
     [Header("Input")]
     [SerializeField]
     private PlayerControls playerControls;
@@ -56,17 +56,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         moveDirection = move.ReadValue<Vector2>();
-        closestIntArea = GetClosestInteractiveArea(); 
-        if (closestIntArea != null) {
-            intArea = closestIntArea.GetComponent<InteractiveArea>();
-            intArea.isInteractable = true;
-            if (fire.triggered && intArea.isItem)
-            {
-                intArea.onInteract.AddListener(()=>HoldItem(closestIntArea.GetComponent<InteractiveArea>().item));
-                intArea.onInteract.Invoke();
-                intArea.onInteract.RemoveAllListeners();
-            }
-        }
+        closestIntArea = GetClosestInteractiveArea();
+        ActionEvents();
     }
     private void FixedUpdate()
     {
@@ -97,6 +88,53 @@ public class PlayerController : MonoBehaviour
     }
     public void HoldItem(ItemsEnum item) {
         GetComponent<ItemController>().AddItem(item);
-    } 
+    }
+    private void ActionEvents() {
+        if (closestIntArea != null)
+        {
+            intArea = closestIntArea.GetComponent<InteractiveArea>();
+            intArea.isInteractable = true;
+            if (fire.triggered) {
+                switch (intArea.area) {
+                    case InteractiveAreaEnum.Ingredients:
 
+                        intArea.onInteract.AddListener(() => HoldItem(closestIntArea.GetComponent<InteractiveArea>().item));
+                        intArea.onInteract.Invoke();
+                        intArea.onInteract.RemoveAllListeners();
+
+                        break;
+                    case InteractiveAreaEnum.ChoppingBoard:
+                        var chopController = intArea.GetComponent<ChoppingBoardController>();
+                        var itemController = GetComponent<ItemController>();
+                        if (itemController.heldItems.Count > 0)
+                        {
+                            tempHeld = new Items();
+                            //chopController.ResetHeld();
+                            intArea.onInteract.AddListener(() => {
+                                if (chopController.heldItem.item == ItemsEnum.None)
+                                {
+                                    chopController.chopStart.AddListener(()=> {
+                                        move.Disable();
+                                        tempHeld.SetItems(itemController.heldItems[0].item, Status.chopped);
+                                        chopController.heldItem = tempHeld;
+                                        itemController.heldItems.RemoveAt(0);
+                                    });
+                                    //chopController.chopping.AddListener(() => );
+                                    chopController.chopEnd.AddListener(() =>
+                                    {
+                                        move.Enable();
+                                        itemController.heldItems.Add(tempHeld);
+                                    });
+                                    StartCoroutine(chopController.Chop());
+                                }
+                            });
+                        }
+                        intArea.onInteract.Invoke();
+                        intArea.onInteract.RemoveAllListeners();
+
+                        break;
+                }
+            }
+        }
+    }
 }

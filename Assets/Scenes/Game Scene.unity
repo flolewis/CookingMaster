@@ -230,11 +230,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactUI: {fileID: 1050322793}
   isInteractable: 0
-  isItem: 1
   onInteract:
     m_PersistentCalls:
       m_Calls: []
   item: 1
+  area: 0
 --- !u!1 &86742962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,6 +1114,9 @@ MonoBehaviour:
   - {fileID: 2005676117}
   moveSpeed: 5
   closestIntArea: {fileID: 0}
+  tempHeld:
+    item: 0
+    status: 0
 --- !u!114 &517937317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1127,11 +1130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxItems: 2
-  heldItems:
-  - item: 0
-    status: 0
-  - item: 0
-    status: 0
+  heldItems: []
 --- !u!1 &582784576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,6 +1626,7 @@ GameObject:
   - component: {fileID: 749539411}
   - component: {fileID: 749539410}
   - component: {fileID: 749539413}
+  - component: {fileID: 749539414}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -1722,11 +1722,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactUI: {fileID: 506400107}
   isInteractable: 0
-  isItem: 0
   onInteract:
     m_PersistentCalls:
       m_Calls: []
   item: 0
+  area: 2
+--- !u!114 &749539414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749539408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18b3c6722b00a614bb8a0913ca4dc2b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chopTime: 3
+  heldItem:
+    item: 0
+    status: 0
+  chopStart:
+    m_PersistentCalls:
+      m_Calls: []
+  chopping:
+    m_PersistentCalls:
+      m_Calls: []
+  chopEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  isChopping: 0
 --- !u!1 &785035375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,6 +2675,7 @@ GameObject:
   - component: {fileID: 919219004}
   - component: {fileID: 919219003}
   - component: {fileID: 919219006}
+  - component: {fileID: 919219007}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -2744,11 +2771,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactUI: {fileID: 1616034421}
   isInteractable: 0
-  isItem: 0
   onInteract:
     m_PersistentCalls:
       m_Calls: []
   item: 0
+  area: 2
+--- !u!114 &919219007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919219001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18b3c6722b00a614bb8a0913ca4dc2b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chopTime: 3
+  heldItem:
+    item: 0
+    status: 0
+  chopStart:
+    m_PersistentCalls:
+      m_Calls: []
+  chopping:
+    m_PersistentCalls:
+      m_Calls: []
+  chopEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  isChopping: 0
 --- !u!1 &922461404
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,11 +3327,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactUI: {fileID: 1621224694}
   isInteractable: 0
-  isItem: 0
   onInteract:
     m_PersistentCalls:
       m_Calls: []
   item: 0
+  area: 1
 --- !u!1 &1032456006
 GameObject:
   m_ObjectHideFlags: 0
@@ -3389,11 +3442,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactUI: {fileID: 1672339271}
   isInteractable: 0
-  isItem: 0
   onInteract:
     m_PersistentCalls:
       m_Calls: []
   item: 0
+  area: 3
 --- !u!1 &1046108796
 GameObject:
   m_ObjectHideFlags: 0
@@ -3443,11 +3496,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactUI: {fileID: 1291075317}
   isInteractable: 0
-  isItem: 1
   onInteract:
     m_PersistentCalls:
       m_Calls: []
   item: 0
+  area: 0
 --- !u!65 &1046108799
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4551,6 +4604,9 @@ MonoBehaviour:
   - {fileID: 2005676117}
   moveSpeed: 5
   closestIntArea: {fileID: 0}
+  tempHeld:
+    item: 0
+    status: 0
 --- !u!54 &1338386260
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5323,11 +5379,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactUI: {fileID: 877162861}
   isInteractable: 0
-  isItem: 1
   onInteract:
     m_PersistentCalls:
       m_Calls: []
   item: 2
+  area: 0
 --- !u!1 &1616034421
 GameObject:
   m_ObjectHideFlags: 0
@@ -5735,11 +5791,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactUI: {fileID: 2002098397}
   isInteractable: 0
-  isItem: 1
   onInteract:
     m_PersistentCalls:
       m_Calls: []
   item: 0
+  area: 0
 --- !u!1 &1663997802
 GameObject:
   m_ObjectHideFlags: 0
@@ -6364,11 +6420,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactUI: {fileID: 958678604}
   isInteractable: 0
-  isItem: 1
   onInteract:
     m_PersistentCalls:
       m_Calls: []
   item: 1
+  area: 0
 --- !u!65 &1821227362
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6764,11 +6820,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactUI: {fileID: 1823888160}
   isInteractable: 0
-  isItem: 1
   onInteract:
     m_PersistentCalls:
       m_Calls: []
   item: 2
+  area: 0
 --- !u!65 &1973991751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7108,11 +7164,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactUI: {fileID: 1767546567}
   isInteractable: 0
-  isItem: 0
   onInteract:
     m_PersistentCalls:
       m_Calls: []
   item: 0
+  area: 3
 --- !u!1 &2012313905
 GameObject:
   m_ObjectHideFlags: 0
