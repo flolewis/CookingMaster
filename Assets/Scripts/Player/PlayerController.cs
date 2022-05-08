@@ -19,13 +19,13 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed = 5f;
     private Vector2 moveDirection = Vector2.zero;
     [SerializeField]
-    private Transform closestIntArea;
+    private Transform closestIntArea, grabPoint;
     private InteractiveArea intArea;
     public Items tempHeld;
     [Header("Input")]
     [SerializeField]
     private PlayerControls playerControls;
-    private InputAction move,fire;
+    private InputAction move,fire,grab;
 
     private void Awake()
     {
@@ -39,19 +39,23 @@ public class PlayerController : MonoBehaviour
         {
             move = playerControls.Player1.Move;
             fire = playerControls.Player1.Fire;
+            grab = playerControls.Player1.Grab;
         }
         else
         {
             move = playerControls.Player2.Move;
             fire = playerControls.Player2.Fire;
+            grab = playerControls.Player2.Grab;
         }
         move.Enable(); 
         fire.Enable();
+        grab.Enable();
     }
     private void OnDisable()
     {
         move.Disable();
         fire.Disable();
+        grab.Enable();
     }
     private void Update()
     {
@@ -61,7 +65,11 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.velocity = new Vector3(moveDirection.x*moveSpeed, 0.05f, moveDirection.y*moveSpeed);
+        rb.velocity = new Vector3(moveDirection.x*moveSpeed, 0f, moveDirection.y*moveSpeed);
+        if (move.triggered)
+        {
+            transform.rotation = Quaternion.LookRotation(rb.velocity);
+        }
     }
     private Transform GetClosestInteractiveArea() {
         float closestDist = Mathf.Infinity;
@@ -133,6 +141,23 @@ public class PlayerController : MonoBehaviour
                         intArea.onInteract.RemoveAllListeners();
 
                         break;
+
+                    case InteractiveAreaEnum.Plate:
+                        var plateController = intArea.GetComponent<PlateController>();
+                        if (plateController.isInteractable)
+                        {
+                            itemController = GetComponent<ItemController>();
+                            plateController.AddItem(itemController.heldItems[0].item, itemController.heldItems[0].status);
+                            itemController.heldItems.RemoveAt(0);
+                        }
+                        break;
+                }
+            }
+            if (grab.triggered) {
+                if (intArea.area == InteractiveAreaEnum.Plate) {
+                    intArea.gameObject.transform.parent = this.transform;
+                    intArea.transform.position = grabPoint.position;
+                    GetComponent<PlateController>().isInteractable = false;
                 }
             }
         }
