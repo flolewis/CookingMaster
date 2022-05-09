@@ -15,16 +15,16 @@ public enum InteractiveAreaEnum
 [System.Serializable]
 public enum ItemsEnum
 {
-    Tomato,
-    Lettuce,
-    Chicken,
+    Tomato = 0,
+    Lettuce = 1,
+    Chicken = 2,
     None
 }
 [System.Serializable]
 public enum Status
 {
-    whole,
-    chopped
+    whole = 0,
+    chopped = 1
 }
 [System.Serializable]
 public class Items 

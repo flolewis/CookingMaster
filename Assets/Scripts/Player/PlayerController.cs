@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.velocity = new Vector3(moveDirection.x*moveSpeed, 0f, moveDirection.y*moveSpeed);
+        rb.velocity = new Vector3(moveDirection.x*moveSpeed, 0.05f, moveDirection.y*moveSpeed);
         if (move.triggered)
         {
             transform.rotation = Quaternion.LookRotation(rb.velocity);
@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
                 if (intArea.area == InteractiveAreaEnum.Plate) {
                     intArea.gameObject.transform.parent = this.transform;
                     intArea.transform.position = grabPoint.position;
-                    GetComponent<PlateController>().isInteractable = false;
+                    intArea.GetComponent<PlateController>().isInteractable = false;
                 }
             }
         }

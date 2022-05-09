@@ -21,4 +21,11 @@ public class PlateController : MonoBehaviour
             heldItems.Add(i);
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PlatePoint")) {
+            this.gameObject.transform.parent = other.transform.parent;
+            this.gameObject.transform.position = other.transform.position;
+        }
+    }
 }
