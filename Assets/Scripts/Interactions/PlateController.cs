@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlateController : MonoBehaviour
@@ -26,6 +27,38 @@ public class PlateController : MonoBehaviour
         if (other.CompareTag("PlatePoint")) {
             this.gameObject.transform.parent = other.transform.parent;
             this.gameObject.transform.position = other.transform.position;
+            this.gameObject.transform.rotation = other.transform.rotation;
+            isInteractable = true;
+        }else if (other.CompareTag("CustomerPoint"))
+        {
+            var oc = other.GetComponent<OrderController>();
+            if (oc.order.Count != heldItems.Count)
+            {
+                Debug.Log("L");
+                heldItems.Clear();
+            }
+            else
+            {
+                foreach (Items item in heldItems.ToList())
+                {
+
+                    if (oc.order.Any(i => i.item == item.item && i.status == item.status))
+                    {
+                        heldItems.Remove(item);
+                    }
+                }
+                if (heldItems.Count <= 0)
+                {
+                    Debug.Log("W");
+                    heldItems.Clear();
+                }
+                else
+                {
+                    Debug.Log("L");
+                    heldItems.Clear();
+                }
+            }
+            oc.RandomizeOrder();
         }
     }
 }
