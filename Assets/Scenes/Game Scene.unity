@@ -6236,7 +6236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1228896564
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6394,7 +6394,11 @@ MonoBehaviour:
   images:
   - {fileID: 120919221}
   - {fileID: 2012313907}
-  color: {r: 0.7075472, g: 0.32537928, b: 0, a: 1}
+  color:
+  - {r: 0.6792453, g: 0.34432855, b: 0, a: 1}
+  - {r: 0, g: 0.7075472, b: 0.078254044, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 1, b: 1, a: 0}
 --- !u!1 &1251032715
 GameObject:
   m_ObjectHideFlags: 0
