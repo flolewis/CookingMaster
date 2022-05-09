@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class OrderController : MonoBehaviour
 {
     public OrderUIController orderUIController;
+    public Timer timer;
     public List<Items> order = new List<Items>();
+    public UnityEvent onOrderComplete;
 
     private void OnEnable()
     {
@@ -26,5 +28,6 @@ public class OrderController : MonoBehaviour
             order.Add(i);
         }
         orderUIController.ShowOrder();
+        timer.StartTimer();
     }
 }
