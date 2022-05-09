@@ -13,6 +13,7 @@ public class OrderController : MonoBehaviour
     }
     public void RandomizeOrder()
     {
+        order.Clear();
         int itemCount = Random.Range(1, 4);
         for (int x = 0; x < itemCount; x++)
         {

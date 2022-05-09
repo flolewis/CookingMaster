@@ -9,6 +9,8 @@ public class ItemController : MonoBehaviour
     private void Start()
     {
         heldItems.Clear();
+        AddItem(ItemsEnum.None);
+        AddItem(ItemsEnum.None);
     }
     public void AddItem(ItemsEnum item) {
         if (heldItems.Count < maxItems)

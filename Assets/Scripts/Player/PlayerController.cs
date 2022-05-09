@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector3(moveDirection.x*moveSpeed, 0.05f, moveDirection.y*moveSpeed);
-        if (move.triggered)
+        if (move.IsPressed())
         {
             transform.rotation = Quaternion.LookRotation(rb.velocity);
         }
@@ -95,7 +95,13 @@ public class PlayerController : MonoBehaviour
         return closestArea;
     }
     public void HoldItem(ItemsEnum item) {
-        GetComponent<ItemController>().AddItem(item);
+        if (GetComponent<ItemController>().heldItems[0].item == ItemsEnum.None)
+        {
+            GetComponent<ItemController>().heldItems[0].item = item;
+        }
+        else {
+            GetComponent<ItemController>().heldItems[1].item = item;
+        }
     }
     private void ActionEvents() {
         if (closestIntArea != null)
@@ -125,13 +131,27 @@ public class PlayerController : MonoBehaviour
                                         move.Disable();
                                         tempHeld.SetItems(itemController.heldItems[0].item, Status.chopped);
                                         chopController.heldItem = tempHeld;
-                                        itemController.heldItems.RemoveAt(0);
+                                        if (itemController.heldItems[1].item != ItemsEnum.None)
+                                        {
+                                            itemController.heldItems.Reverse();
+                                        }
+                                        else
+                                        {
+                                            itemController.heldItems[0].item = ItemsEnum.None;
+                                            itemController.heldItems[0].status = Status.whole;
+                                        }
                                     });
-                                    //chopController.chopping.AddListener(() => );
                                     chopController.chopEnd.AddListener(() =>
                                     {
                                         move.Enable();
-                                        itemController.heldItems.Add(tempHeld);
+                                        if (itemController.heldItems[0].item == ItemsEnum.None)
+                                        {
+                                            itemController.heldItems[0] = tempHeld;
+                                        }
+                                        else
+                                        {
+                                            itemController.heldItems[1] = tempHeld;
+                                        }
                                     });
                                     StartCoroutine(chopController.Chop());
                                 }
@@ -149,6 +169,7 @@ public class PlayerController : MonoBehaviour
                             itemController = GetComponent<ItemController>();
                             plateController.AddItem(itemController.heldItems[0].item, itemController.heldItems[0].status);
                             itemController.heldItems.RemoveAt(0);
+                            itemController.AddItem(ItemsEnum.None);
                         }
                         break;
                 }
