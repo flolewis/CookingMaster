@@ -310,7 +310,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e33c57bd-f68a-44ed-8827-c18de387f5dc"",
-                    ""path"": ""<Keyboard>/backspace"",
+                    ""path"": ""<Keyboard>/backslash"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -321,7 +321,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1a68f3e7-632b-4f4c-a535-2a710722a93f"",
-                    ""path"": ""<Keyboard>/enter"",
+                    ""path"": ""<Keyboard>/rightBracket"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

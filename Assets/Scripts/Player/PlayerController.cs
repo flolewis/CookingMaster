@@ -172,6 +172,18 @@ public class PlayerController : MonoBehaviour
                             itemController.AddItem(ItemsEnum.None);
                         }
                         break;
+                    case InteractiveAreaEnum.Trash:
+                        itemController = GetComponent<ItemController>();
+
+                        itemController.heldItems[0].item = ItemsEnum.None;
+                        itemController.heldItems[0].status = Status.whole;
+                        if (itemController.heldItems[1].item != ItemsEnum.None)
+                        {
+                            itemController.heldItems.Reverse();
+                        }
+                        
+
+                        break;
                 }
             }
             if (grab.triggered) {
