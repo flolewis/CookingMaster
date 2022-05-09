@@ -15,6 +15,7 @@ public class OrderController : MonoBehaviour
     }
     public void RandomizeOrder()
     {
+        timer.timer = 0;
         order.Clear();
         int itemCount = Random.Range(1, 4);
         for (int x = 0; x < itemCount; x++)
@@ -28,6 +29,7 @@ public class OrderController : MonoBehaviour
             order.Add(i);
         }
         orderUIController.ShowOrder();
+        timer.timer = itemCount * 10;
         timer.StartTimer();
     }
 }

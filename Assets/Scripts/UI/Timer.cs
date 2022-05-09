@@ -10,16 +10,20 @@ public class Timer : MonoBehaviour
     public UnityEvent onStart,onEnd;
     private bool isRunning;
     private IEnumerator t;
+    public bool startOnAwake = true;
     private void Start()
     {
         slider.value = 0;
         t = TimerCoroutine();
-        StartTimer();
+        if (startOnAwake)
+        {
+            StartTimer();
+        }
     }
     private void Update()
     {
         if (isRunning) {
-            slider.value += Time.deltaTime / 10;
+            slider.value += Time.deltaTime / timer;
         }
     }
     public void StartTimer()
