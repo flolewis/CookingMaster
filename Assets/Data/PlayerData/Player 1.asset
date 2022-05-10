@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0a2c015e890204abcc60045671f70c, type: 3}
   m_Name: Player 1
   m_EditorClassIdentifier: 
-  timer: 10
+  timer: 200
   score: 0
