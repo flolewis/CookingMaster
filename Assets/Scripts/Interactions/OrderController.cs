@@ -29,7 +29,7 @@ public class OrderController : MonoBehaviour
             order.Add(i);
         }
         orderUIController.ShowOrder();
-        timer.timer = itemCount * 10;
+        timer.timer = itemCount * 15;
         timer.StartTimer();
     }
 }

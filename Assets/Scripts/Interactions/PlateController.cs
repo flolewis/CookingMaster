@@ -8,6 +8,7 @@ public class PlateController : MonoBehaviour
     public int maxItems = 3;
     public List<Items> heldItems = new List<Items>();
     public bool isInteractable = true;
+    public PlayerData pdata;
     private void Start()
     {
         isInteractable = true;
@@ -25,6 +26,7 @@ public class PlateController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PlatePoint")) {
+            pdata = null;
             this.gameObject.transform.parent = other.transform.parent;
             this.gameObject.transform.position = other.transform.position;
             this.gameObject.transform.rotation = other.transform.rotation;
@@ -50,6 +52,7 @@ public class PlateController : MonoBehaviour
                 if (heldItems.Count <= 0)
                 {
                     Debug.Log("W");
+                    pdata.AddScore(oc.order.Count);
                     heldItems.Clear();
                 }
                 else

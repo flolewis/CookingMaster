@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private Transform closestIntArea, grabPoint;
     private InteractiveArea intArea;
     public Items tempHeld;
+    public PlayerData pData;
     [Header("Input")]
     [SerializeField]
     private PlayerControls playerControls;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         playerControls = new PlayerControls();
         rb = gameObject.GetComponent<Rigidbody>();
+        pData.ResetScore();
     }
     private void OnEnable()
     {
@@ -181,13 +183,14 @@ public class PlayerController : MonoBehaviour
                         {
                             itemController.heldItems.Reverse();
                         }
-                        
-
+                        pData.AddScore(-1);
                         break;
                 }
             }
             if (grab.triggered) {
-                if (intArea.area == InteractiveAreaEnum.Plate) {
+                if (intArea.area == InteractiveAreaEnum.Plate)
+                {
+                    intArea.GetComponent<PlateController>().pdata = pData;
                     intArea.gameObject.transform.parent = this.transform;
                     intArea.transform.position = grabPoint.position;
                     intArea.GetComponent<PlateController>().isInteractable = false;
