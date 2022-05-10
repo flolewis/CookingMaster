@@ -23,14 +23,21 @@ public class UIController : MonoBehaviour
             if (players[0].score > players[1].score)
             {
                 winnerText.text = players[0].name + " Win!";
-                if (lData.topScores[lData.topScores.Count-1].score < players[0].score || lData.topScores.Count==0) {
+                if (lData.topScores.Count < 3) {
+                    lData.AddScore(players[0].name, (int)players[0].score);
+                }
+                else if (lData.topScores[lData.topScores.Count - 1].score < players[0].score) {
                     lData.AddScore(players[0].name, (int)players[0].score);
                 }
             }
             else if (players[1].score > players[0].score)
             {
                 winnerText.text = players[1].name + " Win!";
-                if (lData.topScores[lData.topScores.Count-1].score < players[1].score || lData.topScores.Count == 0)
+                if (lData.topScores.Count < 3)
+                {
+                    lData.AddScore(players[1].name, (int)players[1].score);
+                }
+                else if (lData.topScores[lData.topScores.Count - 1].score < players[1].score)
                 {
                     lData.AddScore(players[1].name, (int)players[1].score);
                 }
