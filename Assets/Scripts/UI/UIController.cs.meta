@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 505e366c518beef47a1ce39e7a22fb2d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - lData: {fileID: 11400000, guid: a91a2098a1b2e2b42bb6ab38836a0ec8, type: 2}
+  - startGamePanel: {instanceID: 0}
+  - endGamePanel: {instanceID: 0}
+  - winnerText: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
