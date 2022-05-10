@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 [System.Serializable]
 public class TopScore
@@ -10,11 +11,19 @@ public class TopScore
 [CreateAssetMenu(fileName = "New Leaderboard Data",menuName ="Data/Leaderboard")]
 public class LeaderboardData : ScriptableObject
 {
-    public List<TopScore> topScores;
+    public List<TopScore> topScores = new List<TopScore>();
 
-    private void OnEnable()
-    {
-        SortList();
+	private string gameDataProjectFilePath;
+	private void OnEnable()
+	{
+		#if UNITY_ANDROID
+						gameDataProjectFilePath = System.IO.Path.Combine(Application.persistentDataPath, "GameData.json");
+		#endif
+
+		#if UNITY_EDITOR || UNITY_EDITOR_OSX || UNITY_EDITOR_WIN || UNITY_STANDALONE
+				gameDataProjectFilePath = Application.dataPath + "/streamingAssets/GameData.json";
+#endif
+		SortList();
     }
     public void SortList() {
         topScores.Sort(delegate(TopScore x,TopScore y) {
@@ -28,5 +37,30 @@ public class LeaderboardData : ScriptableObject
         ts.name = name;
         ts.score = score;
         topScores.Add(ts);
-    }
+	}
+
+	public void Save()
+	{
+		string dataAsJson = JsonUtility.ToJson(this, true);
+		string filePath = gameDataProjectFilePath;
+		File.WriteAllText(filePath, dataAsJson);
+	}
+
+	public void Load()
+	{
+		string filePath = gameDataProjectFilePath;
+
+		if (File.Exists(filePath))
+		{
+			string dataAsJson = File.ReadAllText(filePath);
+			this.topScores = JsonHelper.FromJson<TopScore>(dataAsJson);
+			Debug.Log(dataAsJson);
+		}
+	}
+
+	public void ClearData()
+	{
+		topScores.Clear();
+
+	}
 }

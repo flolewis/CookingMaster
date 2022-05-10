@@ -13,7 +13,9 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI winnerText;
     private void Start()
     {
+        lData.Load();
         Time.timeScale = 0;
+
     }
     public void UpdateUI()
     {
@@ -57,7 +59,9 @@ public class UIController : MonoBehaviour
         timers[0].StartTimer();
         timers[1].StartTimer();
     }
-    public void RestartScene() {
+    public void RestartScene()
+    {
+        lData.Save();
         SceneManager.LoadScene("Game Scene");
     }
 }

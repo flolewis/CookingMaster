@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
 public class LeaderboardController : MonoBehaviour
 {
     public LeaderboardData data;
     public GameObject dataText,parentObj;
-    public void Start()
+	public void Start()
     {
         UpdateList();
     }
@@ -17,4 +18,6 @@ public class LeaderboardController : MonoBehaviour
             go.GetComponent<TextMeshProUGUI>().text = topScore.name + " - " + topScore.score;
         }
     }
+
+
 }
