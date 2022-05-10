@@ -12,10 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5505a0e2de317840a9213a91fd3b494, type: 3}
   m_Name: New Leaderboard Data
   m_EditorClassIdentifier: 
-  topScores:
-  - name: 2133
-    score: 4
-  - name: 1233
-    score: 3
-  - name: 123
-    score: 2
+  topScores: []

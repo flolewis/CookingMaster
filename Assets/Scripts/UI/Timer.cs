@@ -36,13 +36,11 @@ public class Timer : MonoBehaviour
     }
     public IEnumerator TimerCoroutine()
     {
-        onStart.Invoke();
-        Debug.Log("Start");
-        isRunning = true;
-        yield return new WaitForSecondsRealtime(timer);
-        isRunning = false;
-        Debug.Log("End");
-        ended = true;
-        onEnd.Invoke();
+            onStart.Invoke();
+            isRunning = true;
+            yield return new WaitForSeconds(timer);
+            isRunning = false;
+            ended = true;
+            onEnd.Invoke();
     }
 }

@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 public class UIController : MonoBehaviour
 {
     public PlayerData[] players;
     public LeaderboardData lData;
-    public GameObject endGamePanel;
+    public GameObject startGamePanel,endGamePanel;
     public Timer[] timers;
     public TextMeshProUGUI winnerText;
+    private void Start()
+    {
+        Time.timeScale = 0;
+    }
     public void UpdateUI()
     {
         if (timers[0].ended && timers[1].ended)
@@ -17,14 +23,14 @@ public class UIController : MonoBehaviour
             if (players[0].score > players[1].score)
             {
                 winnerText.text = players[0].name + " Win!";
-                if (lData.topScores[lData.topScores.Count-1].score < players[0].score) {
+                if (lData.topScores[lData.topScores.Count-1].score < players[0].score || lData.topScores.Count==0) {
                     lData.AddScore(players[0].name, (int)players[0].score);
                 }
             }
             else if (players[1].score > players[0].score)
             {
                 winnerText.text = players[1].name + " Win!";
-                if (lData.topScores[lData.topScores.Count-1].score < players[1].score)
+                if (lData.topScores[lData.topScores.Count-1].score < players[1].score || lData.topScores.Count == 0)
                 {
                     lData.AddScore(players[1].name, (int)players[1].score);
                 }
@@ -38,7 +44,13 @@ public class UIController : MonoBehaviour
             endGamePanel.SetActive(false);
         }
     }
+    public void StartGame() {
+        startGamePanel.SetActive(false);
+        Time.timeScale = 1;
+        timers[0].StartTimer();
+        timers[1].StartTimer();
+    }
     public void RestartScene() {
-        //Application.LoadLevel(1);
+        SceneManager.LoadScene("Game Scene");
     }
 }
