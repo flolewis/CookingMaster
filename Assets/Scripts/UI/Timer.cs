@@ -10,7 +10,7 @@ public class Timer : MonoBehaviour
     public UnityEvent onStart,onEnd;
     private bool isRunning;
     private IEnumerator t;
-    public bool startOnAwake = true;
+    public bool startOnAwake = true,ended = false;
     private void Start()
     {
         slider.value = 0;
@@ -36,12 +36,13 @@ public class Timer : MonoBehaviour
     }
     public IEnumerator TimerCoroutine()
     {
-            onStart.Invoke();
-            Debug.Log("Start");
-            isRunning = true;
-            yield return new WaitForSecondsRealtime(timer);
-            isRunning = false;
-            Debug.Log("End");
-            onEnd.Invoke();
+        onStart.Invoke();
+        Debug.Log("Start");
+        isRunning = true;
+        yield return new WaitForSecondsRealtime(timer);
+        isRunning = false;
+        Debug.Log("End");
+        ended = true;
+        onEnd.Invoke();
     }
 }
