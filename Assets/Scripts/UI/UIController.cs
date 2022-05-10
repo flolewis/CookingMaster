@@ -13,7 +13,6 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI winnerText;
     private void Start()
     {
-        lData.Load();
         Time.timeScale = 0;
 
     }

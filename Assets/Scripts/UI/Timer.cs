@@ -29,7 +29,10 @@ public class Timer : MonoBehaviour
     public void StartTimer()
     {
         isRunning = false;
-        StopCoroutine(t);
+        if (t != null)
+        {
+            StopCoroutine(t);
+        }
         slider.value = 0;
         t = TimerCoroutine();
         StartCoroutine(t);

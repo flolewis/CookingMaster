@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5505a0e2de317840a9213a91fd3b494, type: 3}
-  m_Name: New Leaderboard Data
+  m_Name: LD
   m_EditorClassIdentifier: 
   topScores: []

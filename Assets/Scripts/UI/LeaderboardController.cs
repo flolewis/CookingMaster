@@ -12,7 +12,7 @@ public class LeaderboardController : MonoBehaviour
         UpdateList();
     }
     public void UpdateList() {
-        foreach (TopScore topScore in data.topScores) {
+        foreach (LeaderboardData.TopScore topScore in data.topScores) {
             var go = Instantiate(dataText,parentObj.transform);
             go.SetActive(true);
             go.GetComponent<TextMeshProUGUI>().text = topScore.name + " - " + topScore.score;

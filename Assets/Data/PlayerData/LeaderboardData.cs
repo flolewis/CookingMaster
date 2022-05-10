@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-[System.Serializable]
-public class TopScore
-{
-    public string name;
-    public int score;
-}
 [CreateAssetMenu(fileName = "New Leaderboard Data",menuName ="Data/Leaderboard")]
 public class LeaderboardData : ScriptableObject
 {
-    public List<TopScore> topScores = new List<TopScore>();
+	[System.Serializable]
+	public class TopScore
+	{
+		public string name;
+		public int score;
+	}
+	public List<TopScore> topScores = new List<TopScore>();
 
 	private string gameDataProjectFilePath;
 	private void OnEnable()
@@ -24,7 +24,8 @@ public class LeaderboardData : ScriptableObject
 				gameDataProjectFilePath = Application.dataPath + "/streamingAssets/GameData.json";
 #endif
 		SortList();
-    }
+		this.topScores = new List<TopScore>();
+	}
     public void SortList() {
         topScores.Sort(delegate(TopScore x,TopScore y) {
             return (x.score.CompareTo(y.score));
@@ -41,7 +42,7 @@ public class LeaderboardData : ScriptableObject
 
 	public void Save()
 	{
-		string dataAsJson = JsonUtility.ToJson(this, true);
+		string dataAsJson = JsonHelper.ToJson(this.topScores);
 		string filePath = gameDataProjectFilePath;
 		File.WriteAllText(filePath, dataAsJson);
 	}
@@ -54,7 +55,6 @@ public class LeaderboardData : ScriptableObject
 		{
 			string dataAsJson = File.ReadAllText(filePath);
 			this.topScores = JsonHelper.FromJson<TopScore>(dataAsJson);
-			Debug.Log(dataAsJson);
 		}
 	}
 
